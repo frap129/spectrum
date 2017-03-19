@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="org.frap129.spectrum.MainActivity">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card0"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginTop="16dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        app:cardElevation="6dp"
+        app:contentPadding="18dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prof0"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline" />
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="end"
+            android:src="@drawable/atom"
+            android:tint="#fff"/>
+
+        <TextView
+            android:id="@+id/desc0"
+            android:layout_marginTop="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profdesc0"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:gravity="bottom"/>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card1"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/card0"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        app:cardElevation="6dp"
+        app:contentPadding="18dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prof1"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/rocket"
+            android:tint="#fff"/>
+
+        <TextView
+            android:id="@+id/desc1"
+            android:layout_marginTop="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profdesc1"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:gravity="bottom"/>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card2"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/card1"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        app:cardElevation="6dp"
+        app:contentPadding="18dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prof2"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/battery"
+            android:tint="#fff"/>
+
+        <TextView
+            android:id="@+id/desc2"
+            android:layout_marginTop="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profdesc2"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:gravity="bottom"/>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/card3"
+        android:layout_width="match_parent"
+        android:layout_height="128dp"
+        android:layout_marginTop="16dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/card2"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:clickable="true"
+        app:cardElevation="6dp"
+        app:contentPadding="18dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/prof3"
+            android:textAppearance="@android:style/TextAppearance.Material.Headline" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end"
+            android:src="@drawable/game"
+            android:tint="#fff"/>
+
+        <TextView
+            android:id="@+id/desc3"
+            android:layout_marginTop="34dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/profdesc3"
+            android:textAppearance="@android:style/TextAppearance.Material.Small"
+            android:gravity="bottom"/>
+
+    </android.support.v7.widget.CardView>
+</RelativeLayout>

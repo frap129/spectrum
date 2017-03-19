@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">Spectrum</string>
+
+    <string name="prof0">Balance</string>
+    <string name="prof1">Performance</string>
+    <string name="prof2">Battery</string>
+    <string name="prof3">Gaming</string>
+
+    <string name="profdesc0">The default Electron Kernel profile, known for its smooth performance in basic tasks while maintaining fantastic battery.</string>
+    <string name="profdesc1">Tuned for top tier performance in standard tasks with many less regressions than Balanced, but maintains battery by limiting graphics.</string>
+    <string name="profdesc2">Ultra-conservative profile that lets performance take a hit in order to achieve long-lasting battery life.</string>
+    <string name="profdesc3">Need that extra 10 FPS? I gotchu. Identical to performance in most areas other than the unlocked Graphics performance</string>
+</resources>
