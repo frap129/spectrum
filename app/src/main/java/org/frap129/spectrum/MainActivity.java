@@ -244,7 +244,7 @@ public class MainActivity extends AppCompatActivity {
             AlertDialog supportDialog = dialog.create();
             supportDialog.show();
             suResult = Shell.SU.run(new String[] {
-                    "getprop spectrum.support"
+                    "getprop persist.spectrum.profile"
             });
             StringBuilder profBuilder = new StringBuilder();
             for(String out : suResult){
