@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         // Get profile descriptions
-        //setDesc(); not working yet
+        setDesc(); //not working yet
 
         // Highlight current profile
         initSelected();
@@ -195,53 +195,22 @@ public class MainActivity extends AppCompatActivity {
     // Method that reads and sets profile descriptions
     private void getDesc() {
         TextView desc0 = (TextView) findViewById(R.id.desc0);
-        TextView desc1 = (TextView) findViewById(R.id.desc1);
-        TextView desc2 = (TextView) findViewById(R.id.desc2);
-        TextView desc3 = (TextView) findViewById(R.id.desc3);
         String balDesc;
-        String perDesc;
-        String batDesc;
-        String gamDesc;
+        String kernel;
 
         suResult = Shell.SU.run(new String[] {
-                "getprop persist.spectrum.desc0"
+                "getprop persist.spectrum.kernel"
         });
         StringBuilder balBuilder = new StringBuilder();
         for(String out : suResult){
              balBuilder.append(out);
         }
-        balDesc = balBuilder.toString();
+        kernel = balBuilder.toString();
+        if (kernel.isEmpty())
+            return;
+        balDesc = desc0.getText().toString();
+        balDesc = balDesc.replaceAll("\\bElectron\\b", kernel);
         desc0.setText(balDesc);
-
-        suResult = Shell.SU.run(new String[] {
-                "getprop persist.spectrum.desc1"
-        });
-        StringBuilder perBuilder = new StringBuilder();
-        for(String out : suResult){
-            perBuilder.append(out);
-        }
-        perDesc = perBuilder.toString();
-        desc1.setText(perDesc);
-
-        suResult = Shell.SU.run(new String[] {
-                "getprop persist.spectrum.desc2"
-        });
-        StringBuilder batBuilder = new StringBuilder();
-        for(String out : suResult){
-            batBuilder.append(out);
-        }
-        batDesc = batBuilder.toString();
-        desc2.setText(batDesc);
-
-        suResult = Shell.SU.run(new String[] {
-                "getprop persist.spectrum.desc3"
-        });
-        StringBuilder gamBuilder = new StringBuilder();
-        for(String out : suResult){
-            gamBuilder.append(out);
-        }
-        gamDesc = gamBuilder.toString();
-        desc3.setText(gamDesc);
     }
 
     private void setDesc() {
@@ -259,21 +228,21 @@ public class MainActivity extends AppCompatActivity {
         suResult = Shell.SU.run(new String[] {
                 "getprop persist.spectrum.profile"
         });
-        StringBuilder specBuilder = new StringBuilder();
+        StringBuilder supBuilder = new StringBuilder();
         for(String out : suResult){
-            specBuilder.append(out);
+            supBuilder.append(out);
         }
-        String supportString = specBuilder.toString();
+        String support = supBuilder.toString();
 
-        if (!supportString.isEmpty())
+        if (!support.isEmpty())
             specSupport = true;
         else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this);
             dialog.setTitle("Spectrum not supported!");
             dialog.setMessage("Please contact your kernel dev and ask them to add Spectrum support.");
             dialog.setCancelable(false);
-            AlertDialog support = dialog.create();
-            support.show();
+            AlertDialog supportDialog = dialog.create();
+            supportDialog.show();
         }
     }
 }
