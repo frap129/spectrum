@@ -22,7 +22,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:clickable="true"
-        app:cardElevation="6dp"
+        app:cardElevation="@dimen/card_elevation"
         app:contentPadding="18dp">
         <TextView
             android:layout_width="match_parent"
@@ -58,7 +58,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:clickable="true"
-        app:cardElevation="6dp"
+        app:cardElevation="@dimen/card_elevation"
         app:contentPadding="18dp">
         <TextView
             android:layout_width="match_parent"
@@ -94,7 +94,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:clickable="true"
-        app:cardElevation="6dp"
+        app:cardElevation="@dimen/card_elevation"
         app:contentPadding="18dp">
         <TextView
             android:layout_width="match_parent"
@@ -130,7 +130,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:clickable="true"
-        app:cardElevation="6dp"
+        app:cardElevation="@dimen/card_elevation"
         app:contentPadding="18dp">
         <TextView
             android:layout_width="match_parent"
