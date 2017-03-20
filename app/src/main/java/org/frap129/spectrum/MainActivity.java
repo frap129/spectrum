@@ -36,16 +36,16 @@ public class MainActivity extends AppCompatActivity {
         final int batColor = getColor(R.color.colorBattery);
         final int gamColor = getColor(R.color.colorGaming);
 
-        // Check for Spectrum Support
-        checkSupport();
-
-        if (!specSupport)
-            return;
-
         // Ensure root access
         checkSU();
 
         if (!rooted)
+            return;
+
+        // Check for Spectrum Support
+        checkSupport();
+
+        if (!specSupport)
             return;
 
         // Get profile descriptions
