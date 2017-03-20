@@ -36,10 +36,15 @@ public class MainActivity extends AppCompatActivity {
         final int batColor = getColor(R.color.colorBattery);
         final int gamColor = getColor(R.color.colorGaming);
 
-        // Ensure Spectrum will work
-        fullSupport();
+        // Ensure root access
+        checkSU();
+
         if (!rooted)
             return;
+
+        // Check for Spectrum Support
+        checkSupport();
+
         if (!specSupport)
             return;
 
@@ -249,18 +254,5 @@ public class MainActivity extends AppCompatActivity {
             if (!defProfile.isEmpty() && !defProfile.contains("0"))
                 setProfile(0);
         }
-    }
-
-    private void fullSupport() {
-        new AsyncTask<Object, Object, Void>() {
-            @Override
-            protected Void doInBackground(Object... params) {
-                checkSU();
-                if (!rooted)
-                    return null;
-                checkSupport();
-                return null;
-            }
-        }.execute();
     }
 }
