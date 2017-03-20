@@ -226,7 +226,7 @@ public class MainActivity extends AppCompatActivity {
     // Method to check if kernel supports
     private void checkSupport() {
         suResult = Shell.SU.run(new String[] {
-                "getprop persist.spectrum.profile"
+                "getprop spectrum.support"
         });
         StringBuilder supBuilder = new StringBuilder();
         for(String out : suResult){
@@ -243,6 +243,16 @@ public class MainActivity extends AppCompatActivity {
             dialog.setCancelable(false);
             AlertDialog supportDialog = dialog.create();
             supportDialog.show();
+            suResult = Shell.SU.run(new String[] {
+                    "getprop spectrum.support"
+            });
+            StringBuilder profBuilder = new StringBuilder();
+            for(String out : suResult){
+                profBuilder.append(out);
+            }
+            String defProfile = profBuilder.toString();
+            if (!defProfile.isEmpty() && !defProfile.contains("0"))
+                setProfile(0);
         }
     }
 }
