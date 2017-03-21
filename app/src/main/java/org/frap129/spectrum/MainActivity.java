@@ -165,21 +165,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Create a dialog to stop unrooted users
-    protected void checkSU() {
-        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
-        dialog.setTitle("Spectrum");
-        dialog.setMessage("Checking for root...");
-        dialog.setCancelable(false);
-        AlertDialog root = dialog.create();
-        root.show();
-
+    private void checkSU() {
         rooted = Shell.SU.available();
 
-        if (rooted)
-            root.dismiss();
-        else
-            root.setTitle("Root access not available");
-            root.setMessage("Please root your device and/or grant root access to Spectrum.");
+        if (!rooted) {
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            dialog.setTitle("Root access not available");
+            dialog.setMessage("Please root your device and/or grant root access to Spectrum.");
+            dialog.setCancelable(false);
+            AlertDialog root = dialog.create();
+            root.show();
+        }
     }
 
     // Method that reads and sets profile descriptions
