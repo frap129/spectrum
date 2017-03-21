@@ -38,13 +38,11 @@ public class MainActivity extends AppCompatActivity {
 
         // Ensure root access
         checkSU();
-
         if (!rooted)
             return;
 
         // Check for Spectrum Support
         checkSupport();
-
         if (!specSupport)
             return;
 
@@ -142,7 +140,6 @@ public class MainActivity extends AppCompatActivity {
         int batColor = getColor(R.color.colorBattery);
         int gamColor = getColor(R.color.colorGaming);
 
-
         suResult = Shell.SU.run("getprop persist.spectrum.profile");
 
         if (suResult != null) {
@@ -169,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
         rooted = Shell.SU.available();
 
         if (!rooted) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
             dialog.setTitle("Root access not available");
             dialog.setMessage("Please root your device and/or grant root access to Spectrum.");
             dialog.setCancelable(false);
@@ -211,7 +208,7 @@ public class MainActivity extends AppCompatActivity {
         if (!support.isEmpty())
             specSupport = true;
         else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
             dialog.setTitle("Spectrum not supported!");
             dialog.setMessage("Please contact your kernel dev and ask them to add Spectrum support.");
             dialog.setCancelable(false);
