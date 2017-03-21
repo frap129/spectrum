@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         // Get profile descriptions
-        setDesc(); //not working yet
+        setDesc();
 
         // Highlight current profile
         initSelected();
@@ -150,13 +150,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         if (suResult != null) {
-            StringBuilder resultBuilder = new StringBuilder();
-
-            for(String out : suResult){
-                resultBuilder.append(out);
-            }
-
-            String result = resultBuilder.toString();
+            String result = listToString(suResult);
 
             if (result.contains("0")) {
                 card0.setCardBackgroundColor(balColor);
@@ -201,11 +195,7 @@ public class MainActivity extends AppCompatActivity {
         suResult = Shell.SU.run(new String[] {
                 "getprop persist.spectrum.kernel"
         });
-        StringBuilder balBuilder = new StringBuilder();
-        for(String out : suResult){
-             balBuilder.append(out);
-        }
-        kernel = balBuilder.toString();
+        kernel = listToString(suResult);
         if (kernel.isEmpty())
             return;
         balDesc = desc0.getText().toString();
@@ -228,11 +218,7 @@ public class MainActivity extends AppCompatActivity {
         suResult = Shell.SU.run(new String[] {
                 "getprop spectrum.support"
         });
-        StringBuilder supBuilder = new StringBuilder();
-        for(String out : suResult){
-            supBuilder.append(out);
-        }
-        String support = supBuilder.toString();
+        String support = listToString(suResult);
 
         if (!support.isEmpty())
             specSupport = true;
@@ -246,13 +232,17 @@ public class MainActivity extends AppCompatActivity {
             suResult = Shell.SU.run(new String[] {
                     "getprop persist.spectrum.profile"
             });
-            StringBuilder profBuilder = new StringBuilder();
-            for(String out : suResult){
-                profBuilder.append(out);
-            }
-            String defProfile = profBuilder.toString();
+            String defProfile = listToString(suResult);
             if (!defProfile.isEmpty() && !defProfile.contains("0"))
                 setProfile(0);
         }
+    }
+
+    private String listToString(List<String> list) {
+        StringBuilder Builder = new StringBuilder();
+        for(String out : list){
+            Builder.append(out);
+        }
+        return Builder.toString();
     }
 }
