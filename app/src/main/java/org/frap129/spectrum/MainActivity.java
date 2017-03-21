@@ -161,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Create a dialog to stop unrooted users
+    // Method to check if the device is rooted
     private void checkSU() {
         rooted = Shell.SU.available();
 
@@ -190,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
         desc0.setText(balDesc);
     }
 
+    // Method that runs getDesc as an asynchronous task
     private void setDesc() {
         new AsyncTask<Object, Object, Void>() {
             @Override
@@ -221,6 +222,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    // Method that converts List<String> to String
     private String listToString(List<String> list) {
         StringBuilder Builder = new StringBuilder();
         for(String out : list){
