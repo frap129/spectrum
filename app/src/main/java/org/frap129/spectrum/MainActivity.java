@@ -125,9 +125,7 @@ public class MainActivity extends AppCompatActivity {
         new AsyncTask<Object, Object, Void>() {
             @Override
             protected Void doInBackground(Object... params) {
-                suResult = Shell.SU.run(new String[] {
-                        "setprop persist.spectrum.profile " + profile
-                });
+                suResult = Shell.SU.run("setprop persist.spectrum.profile " + profile);
                 return null;
             }
         }.execute();
@@ -145,9 +143,7 @@ public class MainActivity extends AppCompatActivity {
         int gamColor = getColor(R.color.colorGaming);
 
 
-        suResult = Shell.SU.run(new String[] {
-                "getprop persist.spectrum.profile"
-        });
+        suResult = Shell.SU.run("getprop persist.spectrum.profile");
 
         if (suResult != null) {
             String result = listToString(suResult);
@@ -192,9 +188,7 @@ public class MainActivity extends AppCompatActivity {
         String balDesc;
         String kernel;
 
-        suResult = Shell.SU.run(new String[] {
-                "getprop persist.spectrum.kernel"
-        });
+        suResult = Shell.SU.run("getprop persist.spectrum.kernel");
         kernel = listToString(suResult);
         if (kernel.isEmpty())
             return;
@@ -215,9 +209,7 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to check if kernel supports
     private void checkSupport() {
-        suResult = Shell.SU.run(new String[] {
-                "getprop spectrum.support"
-        });
+        suResult = Shell.SU.run("getprop spectrum.support");
         String support = listToString(suResult);
 
         if (!support.isEmpty())
@@ -229,9 +221,7 @@ public class MainActivity extends AppCompatActivity {
             dialog.setCancelable(false);
             AlertDialog supportDialog = dialog.create();
             supportDialog.show();
-            suResult = Shell.SU.run(new String[] {
-                    "getprop persist.spectrum.profile"
-            });
+            suResult = Shell.SU.run("getprop persist.spectrum.profile");
             String defProfile = listToString(suResult);
             if (!defProfile.isEmpty() && !defProfile.contains("0"))
                 setProfile(0);
