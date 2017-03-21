@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         final CardView card1 = (CardView) findViewById(R.id.card1);
         final CardView card2 = (CardView) findViewById(R.id.card2);
         final CardView card3 = (CardView) findViewById(R.id.card3);
-        final ColorStateList ogColor = card0.getCardBackgroundColor();
         final int balColor = getColor(R.color.colorBalance);
         final int perColor = getColor(R.color.colorPerformance);
         final int batColor = getColor(R.color.colorBattery);
@@ -56,52 +55,28 @@ public class MainActivity extends AppCompatActivity {
         card0.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (oldCard != card0) {
-                    card0.setCardBackgroundColor(balColor);
-                    if (oldCard != null)
-                        oldCard.setCardBackgroundColor(ogColor);
-                    setProfile(0);
-                    oldCard = card0;
-                }
+            cardClick(card0, 0, balColor);
             }
         });
 
         card1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (oldCard != card1) {
-                    card1.setCardBackgroundColor(perColor);
-                    if (oldCard != null)
-                        oldCard.setCardBackgroundColor(ogColor);
-                    setProfile(1);
-                    oldCard = card1;
-                }
+                cardClick(card1, 1, perColor);
             }
         });
 
         card2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (oldCard != card2) {
-                    card2.setCardBackgroundColor(batColor);
-                    if (oldCard != null)
-                        oldCard.setCardBackgroundColor(ogColor);
-                    setProfile(2);
-                    oldCard = card2;
-                }
+                cardClick(card2, 2, batColor);
             }
         });
 
         card3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (oldCard != card3) {
-                    card3.setCardBackgroundColor(gamColor);
-                    if (oldCard != null)
-                        oldCard.setCardBackgroundColor(ogColor);
-                    setProfile(3);
-                    oldCard = card3;
-                }
+                cardClick(card3, 3, gamColor);
             }
         });
 
@@ -230,4 +205,17 @@ public class MainActivity extends AppCompatActivity {
         }
         return Builder.toString();
     }
+
+    // Method that completes card onClick tasks
+    private void cardClick(CardView card, int prof, int color) {
+        if (oldCard != card) {
+            ColorStateList ogColor = card.getCardBackgroundColor();
+            card.setCardBackgroundColor(color);
+            if (oldCard != null)
+                oldCard.setCardBackgroundColor(ogColor);
+            setProfile(prof);
+            oldCard = card;
+        }
+    }
 }
+
