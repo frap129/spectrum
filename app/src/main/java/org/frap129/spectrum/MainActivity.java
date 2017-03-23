@@ -17,8 +17,6 @@ public class MainActivity extends AppCompatActivity {
 
     private CardView oldCard;
     private List<String> suResult = null;
-    private boolean specSupport = false;
-    private boolean rooted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +34,11 @@ public class MainActivity extends AppCompatActivity {
         final int gamColor = getColor(R.color.colorGaming);
 
         // Ensure root access
-        checkSU();
-        if (!rooted)
+        if (!checkSU())
             return;
 
         // Check for Spectrum Support
-        checkSupport();
-        if (!specSupport)
+        if (!checkSupport())
             return;
 
         // Get profile descriptions
@@ -137,17 +133,17 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Method to check if the device is rooted
-    private void checkSU() {
-        rooted = Shell.SU.available();
-
-        if (!rooted) {
+    private boolean checkSU() {
+        if (!Shell.SU.available()) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
             dialog.setTitle("Root access not available");
             dialog.setMessage("Please root your device and/or grant root access to Spectrum.");
             dialog.setCancelable(false);
             AlertDialog root = dialog.create();
             root.show();
-        }
+            return false;
+        } else
+            return true;
     }
 
     // Method that reads and sets profile descriptions
@@ -177,12 +173,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Method to check if kernel supports
-    private void checkSupport() {
+    private boolean checkSupport() {
         suResult = Shell.SU.run("getprop spectrum.support");
         String support = listToString(suResult);
 
         if (!support.isEmpty())
-            specSupport = true;
+            return true;
         else {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
             dialog.setTitle("Spectrum not supported!");
@@ -194,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
             String defProfile = listToString(suResult);
             if (!defProfile.isEmpty() && !defProfile.contains("0"))
                 setProfile(0);
+            return false;
         }
     }
 
