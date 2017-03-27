@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/pDialogHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_margin="20dp"
+        android:text="@string/profileConfirm"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Light.SearchResult.Title" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pDialogHint"
+        android:layout_alignParentStart="true"
+        android:id="@+id/pDialogCancel"
+        android:text="@string/cancelText"
+        android:textColor="@color/colorAccent"
+        android:paddingBottom="10dp"
+        android:background="@android:color/transparent"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/pDialogHint"
+        android:layout_alignParentEnd="true"
+        android:id="@+id/pDialogConfirm"
+        android:text="@string/confirmText"
+        android:textColor="@color/colorAccent"
+        android:paddingBottom="10dp"
+        android:background="@android:color/transparent" />
+
+</RelativeLayout>

@@ -12,6 +12,7 @@
         android:layout_height="122dp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher"
+        android:id="@+id/ico"/>
 
 </RelativeLayout>

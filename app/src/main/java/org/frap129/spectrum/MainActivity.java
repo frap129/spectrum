@@ -1,6 +1,7 @@
 package org.frap129.spectrum;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ public class MainActivity extends AppCompatActivity {
 
     private CardView oldCard;
     private List<String> suResult = null;
+    private int notaneasteregg = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +54,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             cardClick(card0, 0, balColor);
+                if (notaneasteregg == 1) {
+                    notaneasteregg++;
+                } else {
+                    notaneasteregg = 0;
+                }
             }
         });
 
@@ -59,6 +66,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cardClick(card1, 1, perColor);
+                if (notaneasteregg == 3) {
+                    Intent intent = new Intent(MainActivity.this, ProfileLoaderActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    notaneasteregg = 0;
+                }
             }
         });
 
@@ -66,6 +80,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cardClick(card2, 2, batColor);
+                if (notaneasteregg == 2) {
+                    notaneasteregg++;
+                } else {
+                    notaneasteregg = 0;
+                }
             }
         });
 
@@ -73,6 +92,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 cardClick(card3, 3, gamColor);
+                notaneasteregg = 1;
             }
         });
 
