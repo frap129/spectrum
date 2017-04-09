@@ -292,4 +292,5 @@ public class ProfileLoaderActivity extends AppCompatActivity{
             }
         }
     }
+
 }
