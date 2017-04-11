@@ -1,7 +1,9 @@
 package org.frap129.spectrum;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     private CardView oldCard;
     private List<String> suResult = null;
     private int notaneasteregg = 0;
+    private SharedPreferences profile = this.getSharedPreferences("profile", Context.MODE_PRIVATE);
+    private SharedPreferences.Editor editor = profile.edit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,15 +143,23 @@ public class MainActivity extends AppCompatActivity {
             if (result.contains("0")) {
                 card0.setCardBackgroundColor(balColor);
                 oldCard = card0;
+                editor.putString("profile", "0");
+                editor.apply();
             } else if (result.contains("1")) {
                 card1.setCardBackgroundColor(perColor);
                 oldCard = card1;
+                editor.putString("profile", "1");
+                editor.apply();
             } else if (result.contains("2")) {
                 card2.setCardBackgroundColor(batColor);
                 oldCard = card2;
+                editor.putString("profile", "2");
+                editor.apply();
             } else if (result.contains("3")) {
                 card3.setCardBackgroundColor(gamColor);
                 oldCard = card3;
+                editor.putString("profile", "3");
+                editor.apply();
             }
         }
     }
@@ -232,6 +244,8 @@ public class MainActivity extends AppCompatActivity {
                 oldCard.setCardBackgroundColor(ogColor);
             setProfile(prof);
             oldCard = card;
+            editor.putString("profile", String.valueOf(prof));
+            editor.apply();
         }
     }
 }

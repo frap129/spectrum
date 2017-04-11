@@ -160,8 +160,12 @@ public class ProfileLoaderActivity extends AppCompatActivity{
                 setProp("custom");
                 SharedPreferences prefs = getApplication().getSharedPreferences("profilePath", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
+                SharedPreferences prof = getApplication().getSharedPreferences("profile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor peditor = prefs.edit();
                 editor.putString("profilePath", path);
                 editor.apply();
+                peditor.putString("profile", "custom");
+                peditor.apply();
                 pDialog.dismiss();
             }
         });

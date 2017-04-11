@@ -23,6 +23,7 @@
     <string name="bootText">Apply profile on boot</string>
 
     <!-- Shared Preferences -->
+    <string name="profile"/>
     <string name="profilePath"/>
     <string name="firstFind">true</string>
     <string name="loadOnBoot">false</string>
