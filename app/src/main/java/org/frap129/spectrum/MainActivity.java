@@ -21,8 +21,6 @@ public class MainActivity extends AppCompatActivity {
     private CardView oldCard;
     private List<String> suResult = null;
     private int notaneasteregg = 0;
-    private SharedPreferences profile = this.getSharedPreferences("profile", Context.MODE_PRIVATE);
-    private SharedPreferences.Editor editor = profile.edit();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +132,8 @@ public class MainActivity extends AppCompatActivity {
         int perColor = getColor(R.color.colorPerformance);
         int batColor = getColor(R.color.colorBattery);
         int gamColor = getColor(R.color.colorGaming);
+        SharedPreferences profile = this.getSharedPreferences("profile", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = profile.edit();
 
         suResult = Shell.SU.run("getprop persist.spectrum.profile");
 
@@ -244,6 +244,8 @@ public class MainActivity extends AppCompatActivity {
                 oldCard.setCardBackgroundColor(ogColor);
             setProfile(prof);
             oldCard = card;
+            SharedPreferences profile = this.getSharedPreferences("profile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = profile.edit();
             editor.putString("profile", String.valueOf(prof));
             editor.apply();
         }
