@@ -21,6 +21,7 @@
     <string name="profileConfirm">Are you sure you want to load this file?</string>
     <string name="fileSelect">Select a File</string>
     <string name="bootText">Apply profile on boot</string>
+    <string name="profileMenu">Profile loader</string>
 
     <!-- Shared Preferences -->
     <string name="profile"/>

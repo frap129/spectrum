@@ -9,6 +9,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
@@ -248,6 +250,27 @@ public class MainActivity extends AppCompatActivity {
             SharedPreferences.Editor editor = profile.edit();
             editor.putString("profile", String.valueOf(prof));
             editor.apply();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        SharedPreferences first = this.getSharedPreferences("firstFind", Context.MODE_PRIVATE);
+        if (!first.getBoolean("firstFind", true)) {
+            getMenuInflater().inflate(R.menu.nav, menu);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch(item.getItemId()){
+            case R.id.custom_profile:
+                Intent i = new Intent(this, ProfileLoaderActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
         }
     }
 }
