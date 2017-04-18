@@ -126,14 +126,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Method that detects the selected profile on launch
     private void initSelected() {
-        CardView card0 = (CardView) findViewById(R.id.card0);
-        CardView card1 = (CardView) findViewById(R.id.card1);
-        CardView card2 = (CardView) findViewById(R.id.card2);
-        CardView card3 = (CardView) findViewById(R.id.card3);
-        int balColor = getColor(R.color.colorBalance);
-        int perColor = getColor(R.color.colorPerformance);
-        int batColor = getColor(R.color.colorBattery);
-        int gamColor = getColor(R.color.colorGaming);
         SharedPreferences profile = this.getSharedPreferences("profile", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = profile.edit();
 
@@ -143,21 +135,29 @@ public class MainActivity extends AppCompatActivity {
             String result = listToString(suResult);
 
             if (result.contains("0")) {
+                CardView card0 = (CardView) findViewById(R.id.card0);
+                int balColor = getColor(R.color.colorBalance);
                 card0.setCardBackgroundColor(balColor);
                 oldCard = card0;
                 editor.putString("profile", "0");
                 editor.apply();
             } else if (result.contains("1")) {
+                CardView card1 = (CardView) findViewById(R.id.card1);
+                int perColor = getColor(R.color.colorPerformance);
                 card1.setCardBackgroundColor(perColor);
                 oldCard = card1;
                 editor.putString("profile", "1");
                 editor.apply();
             } else if (result.contains("2")) {
+                CardView card2 = (CardView) findViewById(R.id.card2);
+                int batColor = getColor(R.color.colorBattery);
                 card2.setCardBackgroundColor(batColor);
                 oldCard = card2;
                 editor.putString("profile", "2");
                 editor.apply();
             } else if (result.contains("3")) {
+                CardView card3 = (CardView) findViewById(R.id.card3);
+                int gamColor = getColor(R.color.colorGaming);
                 card3.setCardBackgroundColor(gamColor);
                 oldCard = card3;
                 editor.putString("profile", "3");
