@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Method that interprets a profile and sets it
-    private void setProfile(int profile) {
+    public static void setProfile(int profile) {
         int numProfiles = 3;
         if (profile > numProfiles || profile < 0) {
             setProp(0);
@@ -114,11 +114,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // Method that sets system property
-    private void setProp(final int profile) {
+    private static void setProp(final int profile) {
         new AsyncTask<Object, Object, Void>() {
             @Override
             protected Void doInBackground(Object... params) {
-                suResult = Shell.SU.run("setprop persist.spectrum.profile " + profile);
+                Shell.SU.run("setprop persist.spectrum.profile " + profile);
                 return null;
             }
         }.execute();
