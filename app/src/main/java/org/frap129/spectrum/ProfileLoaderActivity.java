@@ -161,7 +161,7 @@ public class ProfileLoaderActivity extends AppCompatActivity{
                 SharedPreferences prefs = getApplication().getSharedPreferences("profilePath", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = prefs.edit();
                 SharedPreferences prof = getApplication().getSharedPreferences("profile", Context.MODE_PRIVATE);
-                SharedPreferences.Editor peditor = prefs.edit();
+                SharedPreferences.Editor peditor = prof.edit();
                 editor.putString("profilePath", path);
                 editor.apply();
                 peditor.putString("profile", "custom");

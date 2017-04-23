@@ -89,9 +89,9 @@ public class ProfileTile extends TileService {
     private void resetTileStatus() {
         SharedPreferences profile = this.getSharedPreferences("profile", MODE_PRIVATE);
         Tile tile = this.getQsTile();
-        Icon newIcon;
-        String newLabel;
-        int newState;
+        Icon newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_mono);;
+        String newLabel = "Custom";
+        int newState = Tile.STATE_ACTIVE;
 
         // Update tile
         if (profile.getString("profile", "").contains("3")) {
@@ -114,10 +114,7 @@ public class ProfileTile extends TileService {
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.atom);
             newState = Tile.STATE_ACTIVE;
             click = false;
-        } else {
-            newLabel = "Custom";
-            newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_mono);
-            newState = Tile.STATE_ACTIVE;
+        } else if (profile.getString("profile", "").contains("custom")) {
             click = false;
         }
 

@@ -162,6 +162,9 @@ public class MainActivity extends AppCompatActivity {
                 oldCard = card3;
                 editor.putString("profile", "3");
                 editor.apply();
+            } else {
+                editor.putString("profile", "custom");
+                editor.apply();
             }
         }
     }

@@ -1,3 +1,3 @@
 TODO
 ====
-* Back button from profile picker to main activity
+* Reset profile selection in MainActivity after setting custom profile
