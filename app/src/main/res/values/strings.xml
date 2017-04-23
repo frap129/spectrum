@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Spectrum</string>
-    <string name="profileTile">Profile</string>
 
     <!-- Profile Names -->
     <string name="prof0">Balance</string>
@@ -23,6 +22,9 @@
     <string name="fileSelect">Select a File</string>
     <string name="bootText">Apply profile on boot</string>
     <string name="profileMenu">Profile loader</string>
+
+    <!-- Profile Tile -->
+    <string name="profileTile">Profile</string>
 
     <!-- Shared Preferences -->
     <string name="profile"/>
