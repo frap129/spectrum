@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         if (!Shell.SU.available()) {
             AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
             dialog.setTitle("Root access not available");
-            dialog.setMessage("Please root your device and/or grant root access to Spectrum.");
+            dialog.setMessage("Spectrum cannot function without Superuser access");
             dialog.setCancelable(false);
             AlertDialog root = dialog.create();
             root.show();
