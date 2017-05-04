@@ -66,33 +66,28 @@ public class ProfileTile extends TileService {
         Tile tile = this.getQsTile();
         Icon newIcon;
         String newLabel;
-        int newState;
+        int newState = Tile.STATE_ACTIVE;
 
         // Update tile
         if (profile.getString("profile", "").contains("3")) {
             newLabel = "Gaming";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.game);
-            newState = Tile.STATE_ACTIVE;
             click = false;
         } else if (profile.getString("profile", "").contains("2")) {
             newLabel = "Battery";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.battery);
-            newState = Tile.STATE_ACTIVE;
             click = true;
         } else if (profile.getString("profile", "").contains("1")){
             newLabel = "Performance";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.rocket);
-            newState = Tile.STATE_ACTIVE;
             click = true;
         } else if (profile.getString("profile", "").contains("0")) {
             newLabel = "Balance";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.atom);
-            newState = Tile.STATE_ACTIVE;
             click = false;
         } else {
             newLabel = "Custom";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.ic_mono);
-            newState = Tile.STATE_ACTIVE;
             click = false;
         }
 
