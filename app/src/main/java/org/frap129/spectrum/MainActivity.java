@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         // Get profile descriptions
-        setDesc();
+        getDesc();
 
         // Highlight current profile
         initSelected();
@@ -196,17 +196,6 @@ public class MainActivity extends AppCompatActivity {
         balDesc = desc0.getText().toString();
         balDesc = balDesc.replaceAll("\\bElectron\\b", kernel);
         desc0.setText(balDesc);
-    }
-
-    // Method that runs getDesc as an asynchronous task
-    private void setDesc() {
-        new AsyncTask<Object, Object, Void>() {
-            @Override
-            protected Void doInBackground(Object... params) {
-                getDesc();
-                return null;
-            }
-        }.execute();
     }
 
     // Method to check if kernel supports
