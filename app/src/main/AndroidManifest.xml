@@ -53,6 +53,10 @@
                 <action android:name="android.service.quicksettings.action.QS_TILE"/>
             </intent-filter>
         </service>
+        <provider
+            android:name="com.ruesga.preferences.MultiProcessSharedPreferencesProvider"
+            android:authorities="com.android.providers"
+            android:exported="false"/>
     </application>
 
 </manifest>

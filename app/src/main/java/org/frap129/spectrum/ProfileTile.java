@@ -7,6 +7,8 @@ import android.os.Build;
 import android.service.quicksettings.Tile;
 import android.service.quicksettings.TileService;
 
+import com.ruesga.preferences.MultiProcessSharedPreferencesProvider;
+
 @TargetApi(Build.VERSION_CODES.N)
 public class ProfileTile extends TileService {
 
@@ -25,7 +27,8 @@ public class ProfileTile extends TileService {
     }
 
     private void setProfile() {
-        SharedPreferences profile = this.getSharedPreferences("profile", MODE_PRIVATE);
+        MultiProcessSharedPreferencesProvider.MultiProcessSharedPreferences profile =
+                MultiProcessSharedPreferencesProvider.getSharedPreferences(ProfileTile.this, "profile");
         SharedPreferences.Editor editor = profile.edit();
         boolean isActive = getServiceStatus();
 
@@ -62,7 +65,8 @@ public class ProfileTile extends TileService {
     }
 
     private void updateTile() {
-        SharedPreferences profile = this.getSharedPreferences("profile", MODE_PRIVATE);
+        MultiProcessSharedPreferencesProvider.MultiProcessSharedPreferences profile =
+                MultiProcessSharedPreferencesProvider.getSharedPreferences(getApplicationContext(), "profile");
         Tile tile = this.getQsTile();
         Icon newIcon;
         String newLabel;
