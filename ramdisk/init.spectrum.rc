@@ -5,8 +5,8 @@
 # Initialization
 on property:sys.boot_completed=1
    # Set default profile on first boot
-   exec u:r:init:s0 root root -- /init.profiles.sh
-   exec u:r:su:s0 root root -- /init.profiles.sh
+   exec u:r:init:s0 root root -- /init.spectrum.sh
+   exec u:r:su:s0 root root -- /init.spectrum.sh
    # Enable Spectrum support
    setprop spectrum.support 1
    # Add kernel name
