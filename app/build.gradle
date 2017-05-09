@@ -7,8 +7,8 @@ android {
         applicationId "org.frap129.spectrum"
         minSdkVersion 23
         targetSdkVersion 25
-        versionCode 3
-        versionName "1.3"
+        versionCode 4
+        versionName "1.4"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
