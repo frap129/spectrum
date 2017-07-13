@@ -18,12 +18,15 @@ import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 
+import static org.frap129.spectrum.Props.kernelProp;
+import static org.frap129.spectrum.Props.profileProp;
+import static org.frap129.spectrum.Props.supportProp;
+
 public class MainActivity extends AppCompatActivity {
 
     private CardView oldCard;
     private List<String> suResult = null;
     private int notaneasteregg = 0;
-    private static String profileProp = "persist.spectrum.profile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -189,7 +192,6 @@ public class MainActivity extends AppCompatActivity {
         String balDesc;
         String kernel;
 
-        String kernelProp = "persist.spectrum.kernel";
         suResult = Shell.SU.run(String.format("getprop %s", kernelProp));
         kernel = listToString(suResult);
         if (kernel.isEmpty())
@@ -201,7 +203,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to check if kernel supports
     private boolean checkSupport() {
-        String supportProp = "spectrum.support";
         suResult = Shell.SU.run(String.format("getprop %s", supportProp));
         String support = listToString(suResult);
 
