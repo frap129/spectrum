@@ -34,19 +34,19 @@ public class ProfileTile extends TileService {
 
         // Update tile and set profile
         if (isActive && click) {
-            MainActivity.setProfile(3);
+            Utils.setProfile(3);
             editor.putString("profile", "3");
             editor.apply();
         } else if (!isActive && click) {
-            MainActivity.setProfile(2);
+            Utils.setProfile(2);
             editor.putString("profile", "2");
             editor.apply();
         } else if (isActive && !click){
-            MainActivity.setProfile(1);
+            Utils.setProfile(1);
             editor.putString("profile", "1");
             editor.apply();
         } else {
-            MainActivity.setProfile(0);
+            Utils.setProfile(0);
             editor.putString("profile", "0");
             editor.apply();
         }

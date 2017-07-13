@@ -20,7 +20,9 @@ import eu.chainfire.libsuperuser.Shell;
 
 import static org.frap129.spectrum.Props.kernelProp;
 import static org.frap129.spectrum.Props.profileProp;
-import static org.frap129.spectrum.Props.supportProp;
+import static org.frap129.spectrum.Utils.checkSupport;
+import static org.frap129.spectrum.Utils.listToString;
+import static org.frap129.spectrum.Utils.setProfile;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -48,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
             return;
 
         // Check for Spectrum Support
-        if (!checkSupport())
+        if (!checkSupport(this))
             return;
 
         // Get profile descriptions
@@ -104,27 +106,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-    }
-
-    // Method that interprets a profile and sets it
-    public static void setProfile(int profile) {
-        int numProfiles = 3;
-        if (profile > numProfiles || profile < 0) {
-            setProp(0);
-        } else {
-            setProp(profile);
-        }
-
-    }
-
-    // Method that sets system property
-    private static void setProp(final int profile) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                Shell.SU.run(String.format("setprop %s %s", profileProp, profile));
-            }
-        }).start();
     }
 
     // Method that detects the selected profile on launch
@@ -199,37 +180,6 @@ public class MainActivity extends AppCompatActivity {
         balDesc = desc0.getText().toString();
         balDesc = balDesc.replaceAll("\\bElectron\\b", kernel);
         desc0.setText(balDesc);
-    }
-
-    // Method to check if kernel supports
-    private boolean checkSupport() {
-        suResult = Shell.SU.run(String.format("getprop %s", supportProp));
-        String support = listToString(suResult);
-
-        if (!support.isEmpty())
-            return true;
-        else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
-            dialog.setTitle("Spectrum not supported!");
-            dialog.setMessage("Please contact your kernel dev and ask them to add Spectrum support.");
-            dialog.setCancelable(false);
-            AlertDialog supportDialog = dialog.create();
-            supportDialog.show();
-            suResult = Shell.SU.run(String.format("getprop %s", profileProp));
-            String defProfile = listToString(suResult);
-            if (!defProfile.isEmpty() && !defProfile.contains("0"))
-                setProfile(0);
-            return false;
-        }
-    }
-
-    // Method that converts List<String> to String
-    public static String listToString(List<String> list) {
-        StringBuilder Builder = new StringBuilder();
-        for(String out : list){
-            Builder.append(out);
-        }
-        return Builder.toString();
     }
 
     // Method that completes card onClick tasks
