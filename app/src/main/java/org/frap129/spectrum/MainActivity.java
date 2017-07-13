@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
-import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -24,6 +23,7 @@ public class MainActivity extends AppCompatActivity {
     private CardView oldCard;
     private List<String> suResult = null;
     private int notaneasteregg = 0;
+    private static String profileProp = "persist.spectrum.profile";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -116,13 +116,12 @@ public class MainActivity extends AppCompatActivity {
 
     // Method that sets system property
     private static void setProp(final int profile) {
-        new AsyncTask<Object, Object, Void>() {
+        new Thread(new Runnable() {
             @Override
-            protected Void doInBackground(Object... params) {
-                Shell.SU.run("setprop persist.spectrum.profile " + profile);
-                return null;
+            public void run() {
+                Shell.SU.run(String.format("setprop %s %s", profileProp, profile));
             }
-        }.execute();
+        }).start();
     }
 
     // Method that detects the selected profile on launch
@@ -130,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
         SharedPreferences profile = this.getSharedPreferences("profile", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = profile.edit();
 
-        suResult = Shell.SU.run("getprop persist.spectrum.profile");
+        suResult = Shell.SU.run(String.format("getprop %s", profileProp));
 
         if (suResult != null) {
             String result = listToString(suResult);
@@ -190,7 +189,8 @@ public class MainActivity extends AppCompatActivity {
         String balDesc;
         String kernel;
 
-        suResult = Shell.SU.run("getprop persist.spectrum.kernel");
+        String kernelProp = "persist.spectrum.kernel";
+        suResult = Shell.SU.run(String.format("getprop %s", kernelProp));
         kernel = listToString(suResult);
         if (kernel.isEmpty())
             return;
@@ -201,7 +201,8 @@ public class MainActivity extends AppCompatActivity {
 
     // Method to check if kernel supports
     private boolean checkSupport() {
-        suResult = Shell.SU.run("getprop spectrum.support");
+        String supportProp = "spectrum.support";
+        suResult = Shell.SU.run(String.format("getprop %s", supportProp));
         String support = listToString(suResult);
 
         if (!support.isEmpty())
@@ -213,7 +214,7 @@ public class MainActivity extends AppCompatActivity {
             dialog.setCancelable(false);
             AlertDialog supportDialog = dialog.create();
             supportDialog.show();
-            suResult = Shell.SU.run("getprop persist.spectrum.profile");
+            suResult = Shell.SU.run(String.format("getprop %s", profileProp));
             String defProfile = listToString(suResult);
             if (!defProfile.isEmpty() && !defProfile.contains("0"))
                 setProfile(0);
