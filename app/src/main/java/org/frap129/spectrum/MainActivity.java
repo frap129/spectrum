@@ -53,6 +53,25 @@ public class MainActivity extends AppCompatActivity {
         if (!checkSupport(this))
             return;
 
+        String disabledProfiles = Utils.disabledProfiles();
+        String[] profilesToDisable = disabledProfiles.split(",");
+        for (String profile : profilesToDisable){
+            switch (profile) {
+                case "balance":
+                    card0.setVisibility(View.GONE);
+                    break;
+                case "performance":
+                    card1.setVisibility(View.GONE);
+                    break;
+                case "battery":
+                    card2.setVisibility(View.GONE);
+                    break;
+                case "gaming":
+                    card3.setVisibility(View.GONE);
+                    break;
+            }
+        }
+
         // Get profile descriptions
         getDesc();
 

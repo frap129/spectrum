@@ -7,6 +7,7 @@ import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 
+import static org.frap129.spectrum.Props.disabledProfilesProp;
 import static org.frap129.spectrum.Props.profileProp;
 import static org.frap129.spectrum.Props.supportProp;
 
@@ -63,5 +64,9 @@ class Utils {
                 Shell.SU.run(String.format("setprop %s %s", profileProp, profile));
             }
         }).start();
+    }
+
+    static String disabledProfiles(){
+        return listToString(Shell.SH.run(String.format("getprop %s", disabledProfilesProp)));
     }
 }

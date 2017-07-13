@@ -8,4 +8,6 @@ class Props {
 
     static String supportProp = "spectrum.support";
 
+    static String disabledProfilesProp = "spectrum.disabledprofiles";
+
 }
