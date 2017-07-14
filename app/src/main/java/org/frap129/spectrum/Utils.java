@@ -2,7 +2,12 @@ package org.frap129.spectrum;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.os.Environment;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
@@ -68,5 +73,36 @@ class Utils {
 
     static String disabledProfiles(){
         return listToString(Shell.SH.run(String.format("getprop %s", disabledProfilesProp)));
+    }
+
+    private static String readString(File file, String profileName) {
+        String returnValue = null;
+        BufferedReader reader = null;
+        try {
+            reader = new BufferedReader(new FileReader(file), 512);
+            returnValue = reader.readLine();
+            while ( returnValue != null && !returnValue.contains(profileName)){
+                returnValue = reader.readLine();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (reader != null) reader.close();
+            } catch (IOException e) {
+                // Ignored, not much we can do anyway
+            }
+        }
+        return returnValue;
+    }
+
+    static String getCustomDesc(String profileName) {
+        File customDescFile = new File(Environment.getExternalStorageDirectory() + "/.spectrum_descriptions");
+        String retVal = readString(customDescFile, profileName);
+        if (retVal != null) {
+            return retVal.split(":")[1];
+        } else {
+            return "fail";
+        }
     }
 }

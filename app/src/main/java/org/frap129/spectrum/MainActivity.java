@@ -1,11 +1,15 @@
 package org.frap129.spectrum;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -15,12 +19,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import java.util.List;
+import java.util.Objects;
 
 import eu.chainfire.libsuperuser.Shell;
 
 import static org.frap129.spectrum.Props.kernelProp;
 import static org.frap129.spectrum.Props.profileProp;
 import static org.frap129.spectrum.Utils.checkSupport;
+import static org.frap129.spectrum.Utils.getCustomDesc;
 import static org.frap129.spectrum.Utils.listToString;
 import static org.frap129.spectrum.Utils.setProfile;
 
@@ -52,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
         // Check for Spectrum Support
         if (!checkSupport(this))
             return;
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        }
+
 
         String disabledProfiles = Utils.disabledProfiles();
         String[] profilesToDisable = disabledProfiles.split(",");
@@ -189,6 +201,9 @@ public class MainActivity extends AppCompatActivity {
     // Method that reads and sets profile descriptions
     private void getDesc() {
         TextView desc0 = (TextView) findViewById(R.id.desc0);
+        TextView desc1 = (TextView) findViewById(R.id.desc1);
+        TextView desc2 = (TextView) findViewById(R.id.desc2);
+        TextView desc3 = (TextView) findViewById(R.id.desc3);
         String balDesc;
         String kernel;
 
@@ -199,6 +214,11 @@ public class MainActivity extends AppCompatActivity {
         balDesc = desc0.getText().toString();
         balDesc = balDesc.replaceAll("\\bElectron\\b", kernel);
         desc0.setText(balDesc);
+
+        if(!Objects.equals(getCustomDesc("balance"), "fail")) desc0.setText(getCustomDesc("balance"));
+        if(!Objects.equals(getCustomDesc("performance"), "fail")) desc1.setText(getCustomDesc("performance"));
+        if(!Objects.equals(getCustomDesc("battery"), "fail")) desc2.setText(getCustomDesc("battery"));
+        if(!Objects.equals(getCustomDesc("gaming"), "fail")) desc3.setText(getCustomDesc("gaming"));
     }
 
     // Method that completes card onClick tasks
