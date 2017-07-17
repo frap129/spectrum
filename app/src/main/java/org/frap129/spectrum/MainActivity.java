@@ -23,8 +23,8 @@ import java.util.Objects;
 
 import eu.chainfire.libsuperuser.Shell;
 
-import static org.frap129.spectrum.Props.kernelProp;
-import static org.frap129.spectrum.Props.profileProp;
+import static org.frap129.spectrum.Utils.kernelProp;
+import static org.frap129.spectrum.Utils.profileProp;
 import static org.frap129.spectrum.Utils.checkSupport;
 import static org.frap129.spectrum.Utils.getCustomDesc;
 import static org.frap129.spectrum.Utils.listToString;
@@ -80,6 +80,8 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case "gaming":
                     card3.setVisibility(View.GONE);
+                    break;
+                default:
                     break;
             }
         }

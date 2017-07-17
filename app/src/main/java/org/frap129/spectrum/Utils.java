@@ -12,14 +12,18 @@ import java.util.List;
 
 import eu.chainfire.libsuperuser.Shell;
 
-import static org.frap129.spectrum.Props.disabledProfilesProp;
-import static org.frap129.spectrum.Props.profileProp;
-import static org.frap129.spectrum.Props.supportProp;
-
 class Utils {
 
+    static String profileProp = "persist.spectrum.profile";
+
+    static String kernelProp = "persist.spectrum.kernel";
+
+    static String supportProp = "spectrum.support";
+
+    static String disabledProfilesProp = "spectrum.disabledprofiles";
+
     // Method to check if kernel supports
-    static boolean checkSupport(Context context) {
+    public static boolean checkSupport(Context context) {
         List<String> shResult;
         shResult = Shell.SH.run(String.format("getprop %s", supportProp));
         String support = listToString(shResult);
@@ -42,7 +46,7 @@ class Utils {
     }
 
     // Method that converts List<String> to String
-    static String listToString(List<String> list) {
+    public static String listToString(List<String> list) {
         StringBuilder Builder = new StringBuilder();
         for(String out : list){
             Builder.append(out);
@@ -51,7 +55,7 @@ class Utils {
     }
 
     // Method that interprets a profile and sets it
-    static void setProfile(int profile) {
+    public static void setProfile(int profile) {
         int numProfiles = 3;
         if (profile > numProfiles || profile < 0) {
             setProp(0);
@@ -71,7 +75,7 @@ class Utils {
         }).start();
     }
 
-    static String disabledProfiles(){
+    public static String disabledProfiles(){
         return listToString(Shell.SH.run(String.format("getprop %s", disabledProfilesProp)));
     }
 
@@ -96,7 +100,7 @@ class Utils {
         return returnValue;
     }
 
-    static String getCustomDesc(String profileName) {
+    public static String getCustomDesc(String profileName) {
         File customDescFile = new File(Environment.getExternalStorageDirectory() + "/.spectrum_descriptions");
         String retVal = readString(customDescFile, profileName);
         if (retVal != null) {
