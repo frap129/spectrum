@@ -1,0 +1,32 @@
+<resources>
+    <string name="app_name">Spectrum</string>
+
+    <!-- Profile Names -->
+    <string name="prof0">Ausgeglichen</string>
+    <string name="prof1">Leistung</string>
+    <string name="prof2">Akku</string>
+    <string name="prof3">Spiele</string>
+
+    <!-- Profile Descriptions -->
+    <string name="profdesc0">Das standardmäßige Electron-Profil, welches für seine gute Leistung bei einfachen Aufgaben bekannt ist und den Akku schont.</string>
+    <string name="profdesc1">Optimiertes Profil für volle Leistung bei aufwendigeren Aufgaben. Weniger Limitierungen, dafür aber einen höheren Akkuverbrauch.</string>
+    <string name="profdesc2">Sehr energiesparendes Profil, bei dem die Leistung komplett in den Hintergrund gestellt wird um den Akku möglichst lange am Leben zu erhalten.</string>
+    <string name="profdesc3">Zusätzliche 10 FPS nötig? Erwischt! Dieses Profil entfernt sämtliche Limitierungen für eine perfekte Grafik-Leistung.</string>
+
+    <!-- Profile Loader -->
+    <string name="aboutLoader">Hoppla!</string>
+    <string name="loaderDesc">Sieht aus als hättest du den versteckten EXKM Profil-Loader gefunden! Dieser war erst als Premium-Funktion geplant, ist aber nun eines von vielen Easter-Egg\'s. Fröhliches Weitersuchen!</string>
+    <string name="cancelText">Abbrechen</string>
+    <string name="confirmText">OK</string>
+    <string name="profileConfirm">Sicher, dass Sie diese Datei laden wollen?</string>
+    <string name="fileSelect">Datei auswählen</string>
+    <string name="bootText">Profil beim Start anwenden</string>
+    <string name="profileMenu">Profile-Loader</string>
+
+    <!-- Profile Tile -->
+    <string name="profileTile">Profile</string>
+
+    <!-- Shared Preferences -->
+    <string name="profile" translatable="false" />
+    <string name="profilePath" translatable="false" />
+</resources>
