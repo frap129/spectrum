@@ -154,28 +154,28 @@ public class MainActivity extends AppCompatActivity {
                 int balColor = ContextCompat.getColor(this, R.color.colorBalance);
                 card0.setCardBackgroundColor(balColor);
                 oldCard = card0;
-                editor.putString("profile", "0");
+                editor.putString("profile", "balanced");
                 editor.apply();
             } else if (result.contains("1")) {
                 CardView card1 = (CardView) findViewById(R.id.card1);
                 int perColor = ContextCompat.getColor(this, R.color.colorPerformance);
                 card1.setCardBackgroundColor(perColor);
                 oldCard = card1;
-                editor.putString("profile", "1");
+                editor.putString("profile", "performance");
                 editor.apply();
             } else if (result.contains("2")) {
                 CardView card2 = (CardView) findViewById(R.id.card2);
                 int batColor = ContextCompat.getColor(this, R.color.colorBattery);
                 card2.setCardBackgroundColor(batColor);
                 oldCard = card2;
-                editor.putString("profile", "2");
+                editor.putString("profile", "battery");
                 editor.apply();
             } else if (result.contains("3")) {
                 CardView card3 = (CardView) findViewById(R.id.card3);
                 int gamColor = ContextCompat.getColor(this, R.color.colorGaming);
                 card3.setCardBackgroundColor(gamColor);
                 oldCard = card3;
-                editor.putString("profile", "3");
+                editor.putString("profile", "gaming");
                 editor.apply();
             } else {
                 editor.putString("profile", "custom");
