@@ -14,13 +14,13 @@ import eu.chainfire.libsuperuser.Shell;
 
 class Utils {
 
-    static String profileProp = "persist.spectrum.profile";
+    public static String profileProp = "persist.spectrum.profile";
 
-    static String kernelProp = "persist.spectrum.kernel";
+    public static String kernelProp = "persist.spectrum.kernel";
 
-    static String supportProp = "spectrum.support";
+    private static String supportProp = "spectrum.support";
 
-    static String disabledProfilesProp = "spectrum.disabledprofiles";
+    private static String disabledProfilesProp = "spectrum.disabledprofiles";
 
     // Method to check if kernel supports
     public static boolean checkSupport(Context context) {
