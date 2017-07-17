@@ -20,9 +20,9 @@ class Utils {
 
     // Method to check if kernel supports
     static boolean checkSupport(Context context) {
-        List<String> suResult;
-        suResult = Shell.SU.run(String.format("getprop %s", supportProp));
-        String support = listToString(suResult);
+        List<String> shResult;
+        shResult = Shell.SH.run(String.format("getprop %s", supportProp));
+        String support = listToString(shResult);
 
         if (!support.isEmpty())
             return true;
@@ -33,8 +33,8 @@ class Utils {
             dialog.setCancelable(false);
             AlertDialog supportDialog = dialog.create();
             supportDialog.show();
-            suResult = Shell.SU.run(String.format("getprop %s", profileProp));
-            String defProfile = listToString(suResult);
+            shResult = Shell.SH.run(String.format("getprop %s", profileProp));
+            String defProfile = listToString(shResult);
             if (!defProfile.isEmpty() && !defProfile.contains("0"))
                 setProfile(0);
             return false;
