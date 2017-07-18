@@ -26,7 +26,4 @@
     <!-- Profile Tile -->
     <string name="profileTile">Profile</string>
 
-    <!-- Shared Preferences -->
-    <string name="profile" translatable="false" />
-    <string name="profilePath" translatable="false" />
 </resources>
