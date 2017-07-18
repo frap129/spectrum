@@ -7,7 +7,14 @@
     <string name="prof2">Battery</string>
     <string name="prof3">Gaming</string>
 
-    <!-- Profile Descriptions -->
+    <!-- Support Strings -->
+    <string name="no_spectrum_support_dialog_title">No Spectrum support detected</string>
+    <string name="no_spectrum_support_dialog_message">Please contact your kernel dev and ask them to add Spectrum support</string>
+    <string name="no_root_detected_dialog_title">No root detected</string>
+    <string name="no_root_detected_dialog_message">Root access was not found or denied. Spectrum needs root to set profiles.</string>
+    <string name="custom_descriptions_fail_text">Storage permission denied, Couldn\'t look for custom descriptions</string>
+  
+    <!-- Default Profile Descriptions -->
     <string name="profdesc0">The default Electron kernel profile, known for its smooth performance in basic tasks while maintaining fantastic battery.</string>
     <string name="profdesc1">Tuned for top tier performance in standard tasks with many less regressions than Balanced, but maintains battery by limiting graphics.</string>
     <string name="profdesc2">Ultra-conservative profile that lets performance take a hit in order to achieve long-lasting battery life.</string>
@@ -31,9 +38,4 @@
     <string name="profilePath" translatable="false" />
     <string name="firstFind" translatable="false">true</string>
     <string name="loadOnBoot" translatable="false">false</string>
-    <string name="no_spectrum_support_dialog_title">No Spectrum support detected</string>
-    <string name="no_spectrum_support_dialog_message">Please contact your kernel dev and request them to add Spectrum support</string>
-    <string name="no_root_detected_dialog_title">No root detected</string>
-    <string name="no_root_detected_dialog_message">Root access was not found or denied. Spectrum needs root to set profiles.</string>
-    <string name="custom_descriptions_fail_text">Storage permission denied, Couldn\'t look for custom descriptions</string>
 </resources>
