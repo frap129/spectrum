@@ -18,13 +18,10 @@ class Utils {
 
     public static String kernelProp = "persist.spectrum.kernel";
 
-    private static String supportProp = "spectrum.support";
-
-    private static String disabledProfilesProp = "spectrum.disabledprofiles";
-
     // Method to check if kernel supports
     public static boolean checkSupport(Context context) {
         List<String> shResult;
+        String supportProp = "spectrum.support";
         shResult = Shell.SH.run(String.format("getprop %s", supportProp));
         String support = listToString(shResult);
 
@@ -62,7 +59,6 @@ class Utils {
         } else {
             setProp(profile);
         }
-
     }
 
     // Method that sets system property
@@ -76,6 +72,7 @@ class Utils {
     }
 
     public static String disabledProfiles(){
+        String disabledProfilesProp = "spectrum.disabledprofiles";
         return listToString(Shell.SH.run(String.format("getprop %s", disabledProfilesProp)));
     }
 
