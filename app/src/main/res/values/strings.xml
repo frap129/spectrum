@@ -35,4 +35,5 @@
     <string name="no_spectrum_support_dialog_message">Please contact your kernel dev and request them to add Spectrum support</string>
     <string name="no_root_detected_dialog_title">No root detected</string>
     <string name="no_root_detected_dialog_message">Root access was not found or denied. Spectrum needs root to set profiles.</string>
+    <string name="custom_descriptions_fail_text">Storage permission denied, Couldn\'t look for custom descriptions</string>
 </resources>

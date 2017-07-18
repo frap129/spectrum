@@ -88,12 +88,16 @@ class Utils {
     }
 
     public static String getCustomDesc(String profileName) {
-        File customDescFile = new File(Environment.getExternalStorageDirectory() + "/.spectrum_descriptions");
+        File customDescFile = new File(Environment.getExternalStorageDirectory() + File.separator +".spectrum_descriptions");
         String retVal = readString(customDescFile, profileName);
         if (retVal != null) {
             return retVal.split(":")[1];
         } else {
             return "fail";
         }
+    }
+
+    public static boolean supportsCustomDesc(){
+        return new File(Environment.getExternalStorageDirectory() + File.separator +".spectrum_descriptions").exists();
     }
 }
