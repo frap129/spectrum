@@ -31,4 +31,8 @@
     <string name="profilePath" translatable="false" />
     <string name="firstFind" translatable="false">true</string>
     <string name="loadOnBoot" translatable="false">false</string>
+    <string name="no_spectrum_support_dialog_title">No Spectrum support detected</string>
+    <string name="no_spectrum_support_dialog_message">Please contact your kernel dev and request them to add Spectrum support</string>
+    <string name="no_root_detected_dialog_title">No root detected</string>
+    <string name="no_root_detected_dialog_message">Root access was not found or denied. Spectrum needs root to set profiles.</string>
 </resources>

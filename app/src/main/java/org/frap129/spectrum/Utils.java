@@ -1,6 +1,5 @@
 package org.frap129.spectrum;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.os.Environment;
 
@@ -19,27 +18,18 @@ class Utils {
     public static String kernelProp = "persist.spectrum.kernel";
 
     // Method to check if kernel supports
-    public static boolean checkSupport(Context context) {
+    public static boolean checkSupport(final Context context) {
         List<String> shResult;
         String supportProp = "spectrum.support";
         shResult = Shell.SH.run(String.format("getprop %s", supportProp));
         String support = listToString(shResult);
 
-        if (!support.isEmpty())
-            return true;
-        else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(context, android.R.style.Theme_Material);
-            dialog.setTitle("Spectrum not supported!");
-            dialog.setMessage("Please contact your kernel dev and ask them to add Spectrum support.");
-            dialog.setCancelable(false);
-            AlertDialog supportDialog = dialog.create();
-            supportDialog.show();
-            shResult = Shell.SH.run(String.format("getprop %s", profileProp));
-            String defProfile = listToString(shResult);
-            if (!defProfile.isEmpty() && !defProfile.contains("0"))
-                setProfile(0);
-            return false;
-        }
+        return !support.isEmpty();
+    }
+
+    // Method to check if the device is rooted
+    public static boolean checkSU() {
+        return Shell.SU.available();
     }
 
     // Method that converts List<String> to String

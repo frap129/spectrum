@@ -3,6 +3,7 @@ package org.frap129.spectrum;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -23,11 +24,11 @@ import java.util.Objects;
 
 import eu.chainfire.libsuperuser.Shell;
 
-import static org.frap129.spectrum.Utils.kernelProp;
-import static org.frap129.spectrum.Utils.profileProp;
 import static org.frap129.spectrum.Utils.checkSupport;
 import static org.frap129.spectrum.Utils.getCustomDesc;
+import static org.frap129.spectrum.Utils.kernelProp;
 import static org.frap129.spectrum.Utils.listToString;
+import static org.frap129.spectrum.Utils.profileProp;
 import static org.frap129.spectrum.Utils.setProfile;
 
 public class MainActivity extends AppCompatActivity {
@@ -51,13 +52,39 @@ public class MainActivity extends AppCompatActivity {
         final int batColor = ContextCompat.getColor(this, R.color.colorBattery);
         final int gamColor = ContextCompat.getColor(this, R.color.colorGaming);
 
-        // Ensure root access
-        if (!checkSU())
-            return;
-
         // Check for Spectrum Support
-        if (!checkSupport(this))
+        if (!checkSupport(this)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.no_spectrum_support_dialog_title))
+                    .setMessage(getString(R.string.no_spectrum_support_dialog_message))
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            finish();
+                        }
+                    })
+                    .show();
             return;
+        }
+
+        // Ensure root access
+        if (!Utils.checkSU()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.no_root_detected_dialog_title))
+                    .setMessage(getString(R.string.no_root_detected_dialog_message))
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            finish();
+                        }
+                    })
+                    .show();
+            return;
+        }
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
                 && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -184,20 +211,6 @@ public class MainActivity extends AppCompatActivity {
                 editor.apply();
             }
         }
-    }
-
-    // Method to check if the device is rooted
-    private boolean checkSU() {
-        if (!Shell.SU.available()) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
-            dialog.setTitle("Root access not available");
-            dialog.setMessage("Spectrum cannot function without Superuser access");
-            dialog.setCancelable(false);
-            AlertDialog root = dialog.create();
-            root.show();
-            return false;
-        } else
-            return true;
     }
 
     // Method that reads and sets profile descriptions
