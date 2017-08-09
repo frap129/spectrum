@@ -1,12 +1,17 @@
 package org.frap129.spectrum;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
-import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
@@ -14,16 +19,26 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.List;
+import java.util.Objects;
 
 import eu.chainfire.libsuperuser.Shell;
+
+import static org.frap129.spectrum.Utils.checkSupport;
+import static org.frap129.spectrum.Utils.getCustomDesc;
+import static org.frap129.spectrum.Utils.kernelProp;
+import static org.frap129.spectrum.Utils.listToString;
+import static org.frap129.spectrum.Utils.profileProp;
+import static org.frap129.spectrum.Utils.setProfile;
 
 public class MainActivity extends AppCompatActivity {
 
     private CardView oldCard;
     private List<String> suResult = null;
     private int notaneasteregg = 0;
+    private static final int PERMISSIONS_REQUEST = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,13 +55,66 @@ public class MainActivity extends AppCompatActivity {
         final int batColor = ContextCompat.getColor(this, R.color.colorBattery);
         final int gamColor = ContextCompat.getColor(this, R.color.colorGaming);
 
-        // Ensure root access
-        if (!checkSU())
-            return;
-
         // Check for Spectrum Support
-        if (!checkSupport())
+        if (!checkSupport(this)) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.no_spectrum_support_dialog_title))
+                    .setMessage(getString(R.string.no_spectrum_support_dialog_message))
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            finish();
+                        }
+                    })
+                    .show();
             return;
+        }
+
+        // Ensure root access
+        if (!Utils.checkSU()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.no_root_detected_dialog_title))
+                    .setMessage(getString(R.string.no_root_detected_dialog_message))
+                    .setCancelable(false)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.dismiss();
+                            finish();
+                        }
+                    })
+                    .show();
+            return;
+        }
+
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.READ_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED
+                && Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            requestPermissions(new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 0);
+        }
+
+
+        String disabledProfiles = Utils.disabledProfiles();
+        String[] profilesToDisable = disabledProfiles.split(",");
+        for (String profile : profilesToDisable){
+            switch (profile) {
+                case "balance":
+                    card0.setVisibility(View.GONE);
+                    break;
+                case "performance":
+                    card1.setVisibility(View.GONE);
+                    break;
+                case "battery":
+                    card2.setVisibility(View.GONE);
+                    break;
+                case "gaming":
+                    card3.setVisibility(View.GONE);
+                    break;
+                default:
+                    break;
+            }
+        }
 
         // Get profile descriptions
         getDesc();
@@ -103,34 +171,12 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    // Method that interprets a profile and sets it
-    public static void setProfile(int profile) {
-        int numProfiles = 3;
-        if (profile > numProfiles || profile < 0) {
-            setProp(0);
-        } else {
-            setProp(profile);
-        }
-
-    }
-
-    // Method that sets system property
-    private static void setProp(final int profile) {
-        new AsyncTask<Object, Object, Void>() {
-            @Override
-            protected Void doInBackground(Object... params) {
-                Shell.SU.run("setprop persist.spectrum.profile " + profile);
-                return null;
-            }
-        }.execute();
-    }
-
     // Method that detects the selected profile on launch
     private void initSelected() {
         SharedPreferences profile = this.getSharedPreferences("profile", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = profile.edit();
 
-        suResult = Shell.SU.run("getprop persist.spectrum.profile");
+        suResult = Shell.SU.run(String.format("getprop %s", profileProp));
 
         if (suResult != null) {
             String result = listToString(suResult);
@@ -140,28 +186,28 @@ public class MainActivity extends AppCompatActivity {
                 int balColor = ContextCompat.getColor(this, R.color.colorBalance);
                 card0.setCardBackgroundColor(balColor);
                 oldCard = card0;
-                editor.putString("profile", "0");
+                editor.putString("profile", "balanced");
                 editor.apply();
             } else if (result.contains("1")) {
                 CardView card1 = (CardView) findViewById(R.id.card1);
                 int perColor = ContextCompat.getColor(this, R.color.colorPerformance);
                 card1.setCardBackgroundColor(perColor);
                 oldCard = card1;
-                editor.putString("profile", "1");
+                editor.putString("profile", "performance");
                 editor.apply();
             } else if (result.contains("2")) {
                 CardView card2 = (CardView) findViewById(R.id.card2);
                 int batColor = ContextCompat.getColor(this, R.color.colorBattery);
                 card2.setCardBackgroundColor(batColor);
                 oldCard = card2;
-                editor.putString("profile", "2");
+                editor.putString("profile", "battery");
                 editor.apply();
             } else if (result.contains("3")) {
                 CardView card3 = (CardView) findViewById(R.id.card3);
                 int gamColor = ContextCompat.getColor(this, R.color.colorGaming);
                 card3.setCardBackgroundColor(gamColor);
                 oldCard = card3;
-                editor.putString("profile", "3");
+                editor.putString("profile", "gaming");
                 editor.apply();
             } else {
                 editor.putString("profile", "custom");
@@ -170,64 +216,29 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    // Method to check if the device is rooted
-    private boolean checkSU() {
-        if (!Shell.SU.available()) {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
-            dialog.setTitle("Root access not available");
-            dialog.setMessage("Spectrum cannot function without Superuser access");
-            dialog.setCancelable(false);
-            AlertDialog root = dialog.create();
-            root.show();
-            return false;
-        } else
-            return true;
-    }
-
     // Method that reads and sets profile descriptions
     private void getDesc() {
         TextView desc0 = (TextView) findViewById(R.id.desc0);
+        TextView desc1 = (TextView) findViewById(R.id.desc1);
+        TextView desc2 = (TextView) findViewById(R.id.desc2);
+        TextView desc3 = (TextView) findViewById(R.id.desc3);
         String balDesc;
         String kernel;
 
-        suResult = Shell.SU.run("getprop persist.spectrum.kernel");
+        suResult = Shell.SU.run(String.format("getprop %s", kernelProp));
         kernel = listToString(suResult);
         if (kernel.isEmpty())
             return;
         balDesc = desc0.getText().toString();
         balDesc = balDesc.replaceAll("\\bElectron\\b", kernel);
         desc0.setText(balDesc);
-    }
 
-    // Method to check if kernel supports
-    private boolean checkSupport() {
-        suResult = Shell.SU.run("getprop spectrum.support");
-        String support = listToString(suResult);
-
-        if (!support.isEmpty())
-            return true;
-        else {
-            AlertDialog.Builder dialog = new AlertDialog.Builder(this, android.R.style.Theme_Material);
-            dialog.setTitle("Spectrum not supported!");
-            dialog.setMessage("Please contact your kernel dev and ask them to add Spectrum support.");
-            dialog.setCancelable(false);
-            AlertDialog supportDialog = dialog.create();
-            supportDialog.show();
-            suResult = Shell.SU.run("getprop persist.spectrum.profile");
-            String defProfile = listToString(suResult);
-            if (!defProfile.isEmpty() && !defProfile.contains("0"))
-                setProfile(0);
-            return false;
+        if (Utils.supportsCustomDesc()){
+            if(!Objects.equals(getCustomDesc("balance"), "fail")) desc0.setText(getCustomDesc("balance"));
+            if(!Objects.equals(getCustomDesc("performance"), "fail")) desc1.setText(getCustomDesc("performance"));
+            if(!Objects.equals(getCustomDesc("battery"), "fail")) desc2.setText(getCustomDesc("battery"));
+            if(!Objects.equals(getCustomDesc("gaming"), "fail")) desc3.setText(getCustomDesc("gaming"));
         }
-    }
-
-    // Method that converts List<String> to String
-    public static String listToString(List<String> list) {
-        StringBuilder Builder = new StringBuilder();
-        for(String out : list){
-            Builder.append(out);
-        }
-        return Builder.toString();
     }
 
     // Method that completes card onClick tasks
@@ -266,5 +277,28 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String permissions[], @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case PERMISSIONS_REQUEST: {
+                if (grantResults.length > 0) {
+                    for(int i = 0; i < grantResults.length; i++) {
+                        String permission = permissions[i];
+                        if(Manifest.permission.READ_EXTERNAL_STORAGE.equals(permission)) {
+                            if(grantResults[i] == PackageManager.PERMISSION_GRANTED) {
+                                this.recreate();
+                            } else {
+                                Toast.makeText(this, R.string.custom_descriptions_fail_text, Toast.LENGTH_SHORT).show();
+                            }
+                        }
+                    }
+                }
+                break;
+            case default:
+                break;
+            }
+        }
+    }
+
 }
 

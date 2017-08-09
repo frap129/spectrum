@@ -25,6 +25,4 @@
 
     <!-- Profile Tile -->
     <string name="profileTile">Profile</string>
-
-    <!-- Shared Preferences -->
 </resources>

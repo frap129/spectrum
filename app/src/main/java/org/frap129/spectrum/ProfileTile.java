@@ -9,6 +9,9 @@ import android.service.quicksettings.TileService;
 
 import com.ruesga.preferences.MultiProcessSharedPreferencesProvider;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 @TargetApi(Build.VERSION_CODES.N)
 public class ProfileTile extends TileService {
 
@@ -34,20 +37,20 @@ public class ProfileTile extends TileService {
 
         // Update tile and set profile
         if (isActive && click) {
-            MainActivity.setProfile(3);
-            editor.putString("profile", "3");
+            Utils.setProfile(3);
+            editor.putString("profile", "gaming");
             editor.apply();
         } else if (!isActive && click) {
-            MainActivity.setProfile(2);
-            editor.putString("profile", "2");
+            Utils.setProfile(2);
+            editor.putString("profile", "battery");
             editor.apply();
         } else if (isActive && !click){
-            MainActivity.setProfile(1);
-            editor.putString("profile", "1");
+            Utils.setProfile(1);
+            editor.putString("profile", "performance");
             editor.apply();
         } else {
-            MainActivity.setProfile(0);
-            editor.putString("profile", "0");
+            Utils.setProfile(0);
+            editor.putString("profile", "balanced");
             editor.apply();
         }
 
@@ -65,27 +68,30 @@ public class ProfileTile extends TileService {
     }
 
     private void updateTile() {
-        MultiProcessSharedPreferencesProvider.MultiProcessSharedPreferences profile =
-                MultiProcessSharedPreferencesProvider.getSharedPreferences(getApplicationContext(), "profile");
+        String profile = MultiProcessSharedPreferencesProvider
+                .getSharedPreferences(getApplicationContext(), "profile")
+                .getString("profile", "");
         Tile tile = this.getQsTile();
         Icon newIcon;
         String newLabel;
         int newState = Tile.STATE_ACTIVE;
+        ArrayList<String> disabledProfilesList = new ArrayList<>();
+        disabledProfilesList.addAll(Arrays.asList(Utils.disabledProfiles().split(",")));
 
         // Update tile
-        if (profile.getString("profile", "").contains("3")) {
+        if (profile.contains("gaming") && !disabledProfilesList.contains(profile)) {
             newLabel = "Gaming";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.game);
             click = false;
-        } else if (profile.getString("profile", "").contains("2")) {
+        } else if (profile.contains("battery") && !disabledProfilesList.contains(profile)) {
             newLabel = "Battery";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.battery);
             click = true;
-        } else if (profile.getString("profile", "").contains("1")){
+        } else if (profile.contains("performance") && !disabledProfilesList.contains(profile)){
             newLabel = "Performance";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.rocket);
             click = true;
-        } else if (profile.getString("profile", "").contains("0")) {
+        } else if (profile.contains("balanced") && !disabledProfilesList.contains(profile)) {
             newLabel = "Balance";
             newIcon = Icon.createWithResource(getApplicationContext(), R.drawable.atom);
             click = false;
