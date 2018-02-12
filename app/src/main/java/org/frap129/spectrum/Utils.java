@@ -13,15 +13,50 @@ import eu.chainfire.libsuperuser.Shell;
 
 class Utils {
 
+    private static String kpmSupport = "/proc/kpm_supported";
+
+    public static String kpmPath = "/sys/module/profiles_manager/parameters/kpm_profile";
+
+    private static String kpmDisabledProfilesPath = "/proc/kpm_disabled_profiles";
+
+    private static String kpmDisabledProfiles = null;
+
+    private static String kpmNotTuned = "/proc/kpm_not_tuned";
+
+    public static String  kpmFinal = "/proc/kpm_final";
+
     public static String profileProp = "persist.spectrum.profile";
 
     public static String kernelProp = "persist.spectrum.kernel";
+
+    public static String kpmPropPath = "/proc/kpm_name";
+
+    public static Boolean KPM;
+
+    public static String notTunedGov = listToString(Shell.SU.run(String.format("cat %s", kpmNotTuned)));
+
+    public static String finalGov;
+
+    public static String cpuScalingGovernorPath = "/sys/devices/system/cpu/cpu0/cpufreq/scaling_governor";
 
     // Method to check if kernel supports
     public static boolean checkSupport(final Context context) {
         List<String> shResult;
         String supportProp = "spectrum.support";
         shResult = Shell.SH.run(String.format("getprop %s", supportProp));
+        if(listToString(shResult).isEmpty()){
+            shResult = Shell.SU.run(String.format("cat %s", kpmSupport));
+            KPM = true;
+
+            List<String> anyDisabledProfile;
+            anyDisabledProfile = Shell.SU.run(String.format("cat %s", kpmDisabledProfilesPath));
+            if(!listToString(anyDisabledProfile).isEmpty()){
+                kpmDisabledProfiles = listToString(anyDisabledProfile);
+            }
+
+        } else {
+            KPM = false;
+        }
         String support = listToString(shResult);
 
         return !support.isEmpty();
@@ -56,13 +91,20 @@ class Utils {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                Shell.SU.run(String.format("setprop %s %s", profileProp, profile));
+                if(KPM) {
+                    Shell.SU.run(String.format("echo %s > %s", profile, kpmPath));
+                } else {
+                    Shell.SU.run(String.format("setprop %s %s", profileProp, profile));
+                }
             }
         }).start();
     }
 
     public static String disabledProfiles(){
         String disabledProfilesProp = "spectrum.disabledprofiles";
+        if(KPM && kpmDisabledProfiles != null){
+            return kpmDisabledProfiles;
+        }
         return listToString(Shell.SH.run(String.format("getprop %s", disabledProfilesProp)));
     }
 
