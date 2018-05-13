@@ -7,15 +7,22 @@
     <string name="prof2">Энергосберегающий</string>
     <string name="prof3">Игровой</string>
 
+    <!-- Support Strings -->
+    <string name="no_spectrum_support_dialog_title">Нет поддержки Spectrum</string>
+    <string name="no_spectrum_support_dialog_message">Свяжитесь с разработчиком ядра для вашего аппарата и попросите его добавить Spectrum</string>
+    <string name="no_root_detected_dialog_title">Нет прав суперпользователя</string>
+    <string name="no_root_detected_dialog_message">Нет прав суперпользователя для установки профиля.</string>
+    <string name="custom_descriptions_fail_text">Не получено разрешение на доступ к памяти, невозможно найти пользовательские описания</string>
+
     <!-- Profile Descriptions -->
-    <string name="profdesc0">The default Electron kernel profile, known for its smooth performance in basic tasks while maintaining fantastic battery.</string>
-    <string name="profdesc1">Tuned for top tier performance in standard tasks with many less regressions than Balanced, but maintains battery by limiting graphics.</string>
-    <string name="profdesc2">Ultra-conservative profile that lets performance take a hit in order to achieve long-lasting battery life.</string>
-    <string name="profdesc3">Need that extra 10 FPS? I gotchu. Identical to performance in most areas other than the unlocked Graphics performance</string>
+    <string name="profdesc0">Стандартный профиль ядра, обладающий балансом между производительностью и энергоэффективностью.</string>
+    <string name="profdesc1">Настраивается на высокую производительность в стандартных задачах с гораздо меньшими регрессиями, чем сбалансированный, но сохраняет заряд батареи за счет ограничения графики.</string>
+    <string name="profdesc2">Ультра-консервативный профиль, который позволяет снизить производительность для того, чтобы максимально сохранять заряд батареи.</string>
+    <string name="profdesc3">Вам нужны дополнительные 10 FPS? Идентичный производительному в большинстве областей, отличается отключением ограничения графики. Идеально подходит для игр.</string>
 
     <!-- Profile Loader -->
     <string name="aboutLoader">Вау!</string>
-    <string name="loaderDesc">Looks like you\'ve found the hidden EXKM Profile loader! While profile loading was originally planned to be a premium feature, I\'ve decided to include it as an easter egg. Others may be hidden in Spectrum, so happy hunting!</string>
+    <string name="loaderDesc">Похоже, вы нашли скрытый загрузчик профиля EXKM! В то время как загрузка этого профиля изначально планировалась как премиальная функция, я решил включить ее как пасхалку.  Другие профили тоже быть скрыты в Spectrum, Удачной охоты!</string>
     <string name="cancelText">Отмена</string>
     <string name="confirmText">ОК</string>
     <string name="profileConfirm">Вы уверены, что хотите загрузить этот файл?</string>
